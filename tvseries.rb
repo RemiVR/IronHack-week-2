@@ -1,32 +1,35 @@
 require 'pp'
+require 'imdb'
+
 class SeriesMaster
 	def initialize
-		@tv_series = {
-			"Breaking bad" => 8,
-			"Walking dead" => 7,
-			"Californication" => 9
-		}
 	end
-	def highest_rating
-		@tv_series.values.sort.last
+	
+	def looking_for_cat
+		cat = Imdb::Search.new('cat')
+		cat.movies.size
 	end
-
-	# def compare
-	# 	if @tv_series["Breaking bad"] == @tv_series["Walking dead"]
-	# end
 end
 
-series_master = SeriesMaster.new
-pp series_master.highest_rating
+seriesmaster = SeriesMaster.new
+pp seriesmaster.looking_for_cat
 
 describe "SeriesMaster" do
 	before do
 		@seriesmaster = SeriesMaster.new
 	end
-
-	describe "Higher rated series" do
-		it "should return highest rating" do
+	describe "looking for a cat" do
+		it "should look for a kitty" do
+			expect(@seriesmaster.looking_for_cat).to eq(200)
+		end
+	end
+	describe "High rated series" do
+		it "#should return highest rating" do
 			expect(@seriesmaster.highest_rating)
 		end
+		it "#should return the most seasons" do
+			expect(@seriesmaster.most_seasons)
+		end
+		it "#should "
 	end
 end
