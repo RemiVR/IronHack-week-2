@@ -1,0 +1,19 @@
+<html>
+<body>
+	<p>Welcome to Spotinatra</p>
+	<form action="/save_song" method="post">
+		<input name="name"/>
+		<input name="author"/>
+		<input type="submit"/>
+	</form>
+
+<!-- Show THe Songs ARRAY -->
+<div>
+	<ul>
+		<% @song_list.each do |song|%>
+		<li><%= song[:author] + " - " + song[:name]%></li>
+		<% end %>
+	</ul>
+</div>
+</body>
+</html>
