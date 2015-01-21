@@ -3,11 +3,14 @@ require 'sinatra/reloader'
 
 set :port, 3000
 set :bind, '0.0.0.0'
+visits = 0
 
 class SongList
-	def order_list
-		songs = ["Back home - Fritz Kalkbrenner", "Aaron - Paul Kalkbrenner", "facing the sun - Fritz Kalkbrenner", "Back home - Fritz Kalkbrenner",]
-		
+	def initialize
+		songs = []
+	end
+	def add
+		songs << {name: name, artist: artist}
 	end
 end
 
@@ -17,6 +20,8 @@ get '/' do
 end
 
 post '/songs/new' do
+
+
 	if songs >= 10
 		redirect('/enough')
 	else
@@ -26,5 +31,5 @@ end
 
 
 get '/enough' do 
-	
+	“IS WORTH F***ING NOTHING”
 end
