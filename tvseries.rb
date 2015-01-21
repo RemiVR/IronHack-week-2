@@ -2,13 +2,22 @@ require 'pp'
 require 'imdb'
 
 class SeriesMaster
-	def initialize
+	def initialize(title)
+		@list = {
+
+		}
 	end
-	
-	def looking_for_cat
+
+	def number_of_seasons(title)
+		movie = Imdb::Search.new(title).movies.first
+  		@serie = Imdb::Serie.new(movie.id)
+	end
+
+	def query_for_cat
 		cat = Imdb::Search.new('cat')
 		cat.movies.size
 	end
+
 end
 
 seriesmaster = SeriesMaster.new
@@ -18,18 +27,20 @@ describe "SeriesMaster" do
 	before do
 		@seriesmaster = SeriesMaster.new
 	end
-	describe "looking for a cat" do
+	describe "returns 200 'cat' query" do
 		it "should look for a kitty" do
-			expect(@seriesmaster.looking_for_cat).to eq(200)
+			expect(@seriesmaster.looking_for_cat).to be>=(200)
 		end
 	end
-	describe "High rated series" do
-		it "#should return highest rating" do
-			expect(@seriesmaster.highest_rating)
+	describe "Best from all" do
+		it "#should return Dexter when compared to Breaking bad and Sherlock" do
+			expect(@seriesmaster.best_of_all(["Dexter", "Breaking Bad", "Sherlock"])).to eq('Dexter')
 		end
-		it "#should return the most seasons" do
-			expect(@seriesmaster.most_seasons)
+		it "#should return Breaking Bad when compared to Dexter and Sherlock" do
+			expect(@seriesmaster.best_of_all(["Dexter", "Breaking Bad", "Sherlock"])).to eq('Breaking Bad')
 		end
-		it "#should "
+		it "#should return Breaking Bad when compared to Dexter and Sherlock" do
+			expect(@seriesmaster.best_of_all(["Dexter", "Breaking Bad", "Sherlock"])).to eq('Breaking Bad')
+		end
 	end
 end
