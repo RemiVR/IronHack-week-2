@@ -34,5 +34,10 @@ end
 
 
 get '/enough' do 
-	'IS WORTH F***ING NOTHING'
-end
+	"IS WORTH F***ING NOTHING"
+	end
+
+curl -L
+	--data
+	"name=extragold,artist=Andhim"
+	localhost:3000/songs/new
