@@ -1,8 +1,10 @@
 require 'pp'
+
 class Numbermaster
+	include Enumerable
 	def check_numbers(numbers)
-		@positive = numbers.sort.select {|n| n > 0}
-		@negative = numbers.sort.select {|n| n < 0}
+		@positive = numbers.sort.select {|number| number > 0}
+		@negative = numbers.sort.select {|number| number < 0}
 		if @positive.size == @negative.size
 			nil
 		elsif @positive.size > @negative.size
@@ -13,15 +15,29 @@ class Numbermaster
 	end
 
 
-	def check_mode(numbers)
-		numbers
-			sorted = @array.sort
-		med = sorted.length / 2
+	def find_values(numbers)
+		
+		freq = Hash.new(0)
+        numbers.each {|number| freq[number] += 1}
+        a = freq.sort_by {|key, number| number}
+        mode = a.to_a[-1][0] 
+
+
+
+		median = numbers.sort
+  		median = numbers.size/2
+
+		mean = numbers.inject{|sum,n| sum + n} / numbers.size
+
+		size = numbers.size
+		# numbers
+		# 	sorted = @array.sort
+		# med = sorted.length / 2
+		[mode, median, mean, size]
 	end
 end
-
-# number_master = Numbermaster.new([1,-2,6,4,-3,-8,5])
-# pp number_master.check_median
+# number_master = Numbermaster.new
+# pp number_master.find_values([1,2,6,4,3,6,8])
 
 
 describe "Numbermaster" do
@@ -42,11 +58,8 @@ describe "Numbermaster" do
 	end
 
 	describe "Get the mode, median, mean and size of the array" do
-		it "should return mode of the given array" do
-			expect(@number_master.check_mode([1,-2,6,0,4,-3,-8,5,-7])).to eq(nil)
-		end
-		it "should return median of the given array" do
-			expect(@number_master.check_median([1,-2,6,0,4,-3,-8,5,-7])).to eq()
+		it "should return mean of the given array" do
+			expect(@number_master.find_values([1,2,6,4,6,3,8])).to eq([6, 3, 4, 7])
 		end
 	end
 end
