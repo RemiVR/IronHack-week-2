@@ -16,7 +16,7 @@ end
 song_list = Songlist.new
 
 get '/' do
-
+	song_list
 	erb :sl9exercise
 end
 
