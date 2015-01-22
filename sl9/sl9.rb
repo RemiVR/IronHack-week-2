@@ -11,12 +11,15 @@ class Songlist
 	def add_song(author,name)
 		@songs << {author: author, name: name}
 	end
+	def songs_list
+		@songs.map {|song| "#{song[:author]} #{song[:name]}" }.join("<br />")
+	end
 end
 
-song_list = Songlist.new
+list = Songlist.new
 
 get '/' do
-	song_list
+	list.songs_list
 	erb :sl9exercise
 end
 
