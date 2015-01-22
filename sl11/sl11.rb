@@ -27,10 +27,13 @@ get '/' do
     erb :sl11
 end
 
+get '/signup' do
+    erb :signup
+end
+
 post '/signup' do
     users << params[:name]
     redirect('/')
-    erb :signup
 end
 
 

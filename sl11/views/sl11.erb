@@ -1,10 +1,8 @@
 <html>
  <body>
-   <p>
-     Here you can see the list of activists. There are currently <%= @user_id %> activists subscribed. 
-   </p>
+   <p>Here you can see the list of activists. There are currently <%= @user_id %> activists subscribed. </p>
 
-
+   <p><a href="/signup">Sign up</a> here please!</p>
    <h2> Here is the list of activists subscirbed </h2>
    
    <% if @users.any? %>
@@ -14,11 +12,5 @@
        <% end %>
      </ol>
    <% end %>
-
-   <form action="/signup" method="post">
-     <input name="name" />
-     <input type="submit" />
-   </form>
-
  </body>
 </html>
