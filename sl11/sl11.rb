@@ -22,7 +22,7 @@ user_id ||= 0
 
 get '/' do
     user_id += 1
-    @user_id = user_id
+    @user_id = session[:user_id]
     @users = users
     erb :sl11
 end
@@ -32,6 +32,7 @@ get '/signup' do
 end
 
 post '/signup' do
+    session[:user_id] = user_id
     users << params[:name]
     redirect('/')
 end
