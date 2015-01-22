@@ -1,22 +1,24 @@
 <html>
  <body>
    <p>
-     Here you can see the list of activists. There are currently <%= @number_of_users %> activists subscribed. 
+     Here you can see the list of activists. There are currently <%= @user_id %> activists subscribed. 
    </p>
 
 
-   <h1> Here is the list of activists subscirbed </h1>
+   <h2> Here is the list of activists subscirbed </h2>
    
-   <% if @activists.any? %>
+   <% if @users.any? %>
      <ol>
-       <% @activists.each do |activ| %>
-         <li><%= activ %></li>
+       <% @users.each do |user| %>
+         <li><%= user %></li>
        <% end %>
      </ol>
    <% end %>
 
-   <p>
-     Not yet subscribed? <a href="/signup">Sign-up!</a>
-   </p>
+   <form action="/signup" method="post">
+     <input name="name" />
+     <input type="submit" />
+   </form>
+
  </body>
 </html>
