@@ -17,12 +17,13 @@ set :port, 3002
 
 enable :sessions
 
-users = []
+users = {}
 user_id ||= 0
 
 get '/' do
     user_id += 1
     @user_id = session[:user_id]
+    @user_name = users[@user_id]
     @users = users
     erb :sl11
 end
@@ -33,7 +34,7 @@ end
 
 post '/signup' do
     session[:user_id] = user_id
-    users << params[:name]
+    users[user_id] = params[:name]
     redirect('/')
 end
 

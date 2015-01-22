@@ -1,13 +1,17 @@
 <html>
  <body>
-   <p>Here you can see the list of activists. There are currently <%= @user_id %> users. </p>
+   <p>Here you can see the list of users. </p>
+
+   <% if @user_name %>
+    <h2>ID: <%= @user_id%> User: <%= @user_name %></h2>
+   <% end %>
 
    <p><a href="/signup">Sign up</a> here please!</p>
    <h2> Here is the list of activists subscirbed </h2>
    
    <% if @users.any? %>
      <ol>
-       <% @users.each do |user| %>
+       <% @users.each do |id, user| %>
          <li><%= user %></li>
        <% end %>
      </ol>
