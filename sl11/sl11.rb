@@ -10,24 +10,21 @@
 
 
 require 'sinatra'
-require "sinatra/reloader" if development?
+require 'sinatra/reloader'
 require 'pp'
 
-set :port, 3000
-
-
-users ||= 0
-
+set :port, 3002
 
 
 class Activists
-    attr_accessor :activists
+    attr_accessor :activists, :users
     def initialize
-    @activists =[]
+    @activists = []
+    @users ||= 0
     end
-    def add_user(activist)
-        visits += 1
-        @users = users
+
+    def add_activist(activist)
+        @users += 1
         @activists << activist
     end
 end
@@ -35,13 +32,13 @@ end
 subscriber = Activists.new
 
 get('/') do  
-   @activists = subscriber
+   @activists = subscriber.activists
+   @number_of_users = subscriber.users
     erb(:sl11)
 end
 
-post('/') do
-    activist << params[:name]
-    subscriber.add_user(activist)
+post('/signup') do
+    subscriber.add_activist(params[:name])
     redirect('/')
 end
 
