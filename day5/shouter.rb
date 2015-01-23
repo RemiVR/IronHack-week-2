@@ -59,6 +59,7 @@ post "/login" do
     		redirect('/')
     	else
     		session[:error] = "Wrong password, Try again."
+    		
     		redirect('/login')
     	end
     else
