@@ -49,14 +49,16 @@ post '/signup' do
 end
 
 get '/login' do
-	redirect '/'
+	@logged_in = session[:logged_in]
+	erb :login
 end
 
 post "/login" do
     if User.find_by(handle: params[:handle])
     	user = User.find_by(handle: params[:handle])
     	if user.password == params[:password]
-    		redirect_to("/")
+    		session[:logged_in] = "Login successful"
+    		
     	else
     		session[:errors] = "Wrong fucking password. Dumb ASS"
     		redirect_to("/")
@@ -69,12 +71,15 @@ end
 # describe User do
 # 	before do
 # 		@user = User.new
-# 		@user.name = :name
-# 		@user.handle = :handle
-# 		@user.password = :password
+# 		@user.name = "remi"
+# 		@user.handle = "coco"
+# 		@user.password = "KSRJHQHKGMPRCSAJYYVB"
 # 	end
 # 	it "should validate user information" do
 # 		expect(@user.valid?).to be_truthy
+# 	end
+# 	it "should validate handle" do
+# 		expect(@user.handle.valid?).to be_truthy
 # 	end
 # end
 
