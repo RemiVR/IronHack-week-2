@@ -1,10 +1,18 @@
 <html>
-<body>
+<body style="text-align: center;">
 
 	<h1>Welcome to Shouter</h1>
-	<p><a href="/signup">Sign up</a> Here first!</p>
+	<p><a href="/signup">Sign up</a> Here first!</p><br/>
 
-	<h2>Shout out loud!</h2>
+	<h3>Login in if you already have an account</h3>
+
+	<form action="/login" method="post">
+		Username<input  type="text" name="handle"/>
+		Password<input type="password" name="password"/>
+		<input type="submit"/>
+	</form>
+
+	<h2>Shout out loud! <%= @user.name %></h2>
 	<textarea name="shout">
 	</textarea><br/>
 	<input type="submit">

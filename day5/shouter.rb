@@ -26,16 +26,17 @@ end
 	
 
 get '/' do
-	user = User.find(session[:user_id])
-	
-	# @shout = shout
+	@user = User.find_by(session[:user_id])
+	@user = User.last
+	@errors = session[:errors]
 	erb :index
 end
 
 
 get '/signup' do
-	@user = User.last
+	
 	erb :signup
+	# redirect '/'
 end
 
 post '/signup' do
@@ -44,25 +45,36 @@ post '/signup' do
 		password: pass )
 	user.save
 	session[:user_id] = user.id
-	redirect '/signup'
+	redirect '/'
 end
 
 get '/login' do
 	redirect '/'
 end
-# post '/login' do
 
-# end
+post "/login" do
+    if User.find_by(handle: params[:handle])
+    	user = User.find_by(handle: params[:handle])
+    	if user.password == params[:password]
+    		redirect_to("/")
+    	else
+    		session[:errors] = "Wrong fucking password. Dumb ASS"
+    		redirect_to("/")
+    	end
+    else
+    	redirect_to("/")
+    end
+end
 
 # describe User do
 # 	before do
 # 		@user = User.new
-# 		@user.name = 'Remi'
-# 		@user.username = 'remicoco'
-# 		@user.password = ''
+# 		@user.name = :name
+# 		@user.handle = :handle
+# 		@user.password = :password
 # 	end
-# 	it "should validate user information"
-# 		expect(@user.valid?).to bet_truthy
+# 	it "should validate user information" do
+# 		expect(@user.valid?).to be_truthy
 # 	end
 # end
 
