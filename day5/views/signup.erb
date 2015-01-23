@@ -1,0 +1,13 @@
+<html>
+<body>
+
+	<h2>Please fill in the form</h2>
+	<form action="/signup" method="post">
+		Name: <input name="name"/><br/>
+		Username: <input type="text" name="handle"/><br/>
+	<!-- 	Password: <input type="password" name="password"/><br/>
+ -->		<input type="submit"/><br/>
+	</form>
+	<p><%= @user.name %> <%= @user.handle %> <%= @user.password %></p>
+</body>
+</html>
