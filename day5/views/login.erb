@@ -4,11 +4,9 @@
 
 	<h3>Login in if you already have an account</h3>
 
-	<% if @user %>
-	<h1><%= @logged_in %></h1>
-	<% else %>
-	<h1><%= @errors %></h1>
-	<% end %>
+	<% @error %>
+		<%= @error %>
+	<%end%>
 
 	<form action="/login" method="post">
 		Username<input  type="text" name="handle"/>

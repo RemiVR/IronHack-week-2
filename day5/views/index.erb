@@ -2,6 +2,9 @@
 <body style="text-align: center;">
 
 	<h1>Welcome to Shouter</h1>
+	<% if @message %>
+		<%= @message %>
+	<% end %>
 	<p><a href="/signup">Sign up</a> Here first or <a href="/login">Login</a> if you already have an account</p><br/>
 
 	<h3>Login in if you already have an account</h3>

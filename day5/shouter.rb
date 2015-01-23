@@ -28,6 +28,7 @@ end
 get '/' do
 	@user = User.find_by(session[:user_id])
 	@user = User.last
+	@message = session[:logged_in]	
 	erb :index
 end
 
@@ -47,18 +48,17 @@ post '/signup' do
 end
 
 get '/login' do
+	@error = session[:error]
 	erb :login
 end
 
 post "/login" do
-    if User.find_by(handle: params[:handle])
-    	user = User.find_by(handle: params[:handle])
-    	if user.password == params[:password]
+    if user = User.find_by(handle: params[:handle])
+       	if user.password == params[:password]
     		session[:logged_in] = "Login successful"
-    		@logged_in = session[:logged_in]
+    		redirect('/')
     	else
     		session[:error] = "Wrong password, Try again."
-    		@error = session[:error]
     		redirect('/login')
     	end
     else
