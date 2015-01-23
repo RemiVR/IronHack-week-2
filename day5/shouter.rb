@@ -28,7 +28,6 @@ end
 get '/' do
 	@user = User.find_by(session[:user_id])
 	@user = User.last
-	@errors = session[:errors]
 	erb :index
 end
 
@@ -36,7 +35,6 @@ end
 get '/signup' do
 	
 	erb :signup
-	# redirect '/'
 end
 
 post '/signup' do
@@ -45,11 +43,10 @@ post '/signup' do
 		password: pass )
 	user.save
 	session[:user_id] = user.id
-	redirect '/'
+	redirect('/')
 end
 
 get '/login' do
-	@logged_in = session[:logged_in]
 	erb :login
 end
 
@@ -58,13 +55,14 @@ post "/login" do
     	user = User.find_by(handle: params[:handle])
     	if user.password == params[:password]
     		session[:logged_in] = "Login successful"
-    		
+    		@logged_in = session[:logged_in]
     	else
-    		session[:errors] = "Wrong fucking password. Dumb ASS"
-    		redirect_to("/")
+    		session[:error] = "Wrong password, Try again."
+    		@error = session[:error]
+    		redirect('/login')
     	end
     else
-    	redirect_to("/")
+    	redirect("/login")
     end
 end
 
@@ -72,7 +70,7 @@ end
 # 	before do
 # 		@user = User.new
 # 		@user.name = "remi"
-# 		@user.handle = "coco"
+# 		@user.handle = :handle
 # 		@user.password = "KSRJHQHKGMPRCSAJYYVB"
 # 	end
 # 	it "should validate user information" do
