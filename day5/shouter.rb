@@ -34,7 +34,6 @@ end
 
 
 get '/signup' do
-	
 	erb :signup
 end
 
@@ -44,7 +43,7 @@ post '/signup' do
 		password: pass )
 	user.save
 	session[:user_id] = user.id
-	redirect('/')
+	# redirect('/')
 end
 
 get '/login' do
@@ -59,11 +58,10 @@ post "/login" do
     		redirect('/')
     	else
     		session[:error] = "Wrong password, Try again."
-    		
     		redirect('/login')
     	end
     else
-    	redirect("/login")
+    	redirect('/login')
     end
 end
 
