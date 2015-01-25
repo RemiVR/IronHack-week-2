@@ -29,6 +29,7 @@ end
 
 get '/' do
 	@shouts = Shout.all.order('created_at desc').limit(10)
+	
 	erb :index
 end
 
@@ -77,6 +78,8 @@ post '/shout' do
 end	
 post '/likes' do
 	likes = Shout.find(session[:shout_id])
+
+	likes.save
 end
 
 
