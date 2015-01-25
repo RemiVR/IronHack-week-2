@@ -21,12 +21,13 @@ end
 
 class Shout < ActiveRecord::Base
   validates :message, presence: true, length: { minimum: 1, maximum: 200}
+  validates :created_at, presence: true
   belongs_to :user
 end
 	
 
 get '/' do
-	# @shouts = Shout.all
+	@shouts = Shout.all.order('created_at desc').limit(6)
 	erb :index
 end
 
@@ -67,10 +68,12 @@ post "/login" do
     end
 end
 
-# post '/shout' do
-# 	shout = Shout.new(message: params[:message])
-# 	shout.save
-# end
+post '/shout' do
+	shout = Shout.new(message: params[:message], created_at: Time.new)
+	shout.save
+
+	redirect('/')
+end
 
 
 # describe User do
