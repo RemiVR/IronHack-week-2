@@ -4,10 +4,6 @@
 
 	<h3>Login in if you already have an account</h3>
 
-	<% if @error %>
-		<%= @error %>
-	<%end%>
-
 	<form action="/login" method="post">
 		Username<input  type="text" name="handle"/>
 		Password<input type="password" name="password"/>
@@ -15,6 +11,6 @@
 
 	</form>
 
-	<h6 style="color: grey;" >If entered login details are correct, you will be redirected to home page.</h6>
+	<h5 style="color: grey;" >If entered login details are correct, you will be redirected to home page. (otherwise you will have to try again) </h5>
 </body>
 </html>

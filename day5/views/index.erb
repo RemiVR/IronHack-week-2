@@ -13,15 +13,16 @@
 	</textarea><br/>
 	<input type="submit">
 </form>
-<div style="border: 1px solid red;">
+	<div>
 		<% @shouts.each do |shout| %>
 		<p><%= shout.message%></p>
-		<ul>
-			<li style="list-style-type: none;"><%= shout.created_at %></li><br/>
-
+		<ul style="list-style-type: none;">
+			<li><%= shout.created_at %></li>
+			<li>Likes: <%= shout.likes %></li>
+			<li><a href="/likes/"> <p>like</p></a></li>
 		</ul>
 		<% end %>
 
-</div>
+	</div>
 </body>
 </html>

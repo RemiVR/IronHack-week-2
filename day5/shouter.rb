@@ -22,12 +22,13 @@ end
 class Shout < ActiveRecord::Base
   validates :message, presence: true, length: { minimum: 1, maximum: 200}
   validates :created_at, presence: true
+  validates :likes, presence: true
   belongs_to :user
 end
 	
 
 get '/' do
-	@shouts = Shout.all.order('created_at desc').limit(6)
+	@shouts = Shout.all.order('created_at desc').limit(10)
 	erb :index
 end
 
@@ -69,11 +70,15 @@ post "/login" do
 end
 
 post '/shout' do
-	shout = Shout.new(message: params[:message], created_at: Time.new)
+	shout = Shout.new(message: params[:message], created_at: Time.new, likes: 0)
 	shout.save
 
 	redirect('/')
+end	
+post '/likes' do
+	likes = Shout.find(session[:shout_id])
 end
+
 
 
 # describe User do
