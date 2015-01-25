@@ -19,7 +19,11 @@
 		<ul style="list-style-type: none;">
 			<li><%= shout.created_at %></li>
 			<li>Likes: <%= shout.likes %></li>
-			<li><a href="/likes/"> <p>like</p></a></li>
+			<li> 
+				<form action="/likes" method="post">
+				<input name="shout_id" value="<%=shout.id%>" type="hidden">
+				<input type="submit" value="Like!"/>
+				</form> </li>
 		</ul>
 		<% end %>
 

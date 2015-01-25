@@ -29,6 +29,7 @@ end
 
 get '/' do
 	@shouts = Shout.all.order('created_at desc').limit(10)
+	@users = User.all
 	erb :index
 end
 
@@ -56,8 +57,6 @@ post "/login" do
     if User.find_by(handle: params[:handle])
     	user = User.find_by(handle: params[:handle])
     	if user.password == params[:password]
-    		# session[:logged_in] = "Login successful"
-    		# @logged_in = session[:logged_in]
     		redirect('/')
     	else
     		session[:error] = "Wrong password"
@@ -74,10 +73,12 @@ post '/shout' do
 
 	redirect('/')
 end	
-post '/likes' do
-	likes = Shout.find(session[:shout_id])
 
-	likes.save
+post '/likes' do
+	shout = Shout.find(params[:shout_id])
+	shout.likes +=1
+	shout.save
+	redirect '/'
 end
 
 
@@ -85,7 +86,7 @@ end
 # 	before do
 # 		@user = User.new
 # 		@user.name = "remi"
-# 		@user.handle = :handle
+# 		@user.handle = "coco"
 # 		@user.password = "KSRJHQHKGMPRCSAJYYVB"
 # 	end
 # 	it "should validate user information" do
