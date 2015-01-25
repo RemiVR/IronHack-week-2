@@ -26,8 +26,7 @@ end
 	
 
 get '/' do
-	@user = User.find_by(session[:user_id])
-	@user = User.last
+	# @user = User.find_by(session[:user_id])
 	@message = session[:logged_in]	
 	erb :index
 end
@@ -39,11 +38,10 @@ end
 
 post '/signup' do
 	pass = (0...20).map { (65 + rand(26)).chr }.join
-	user = User.new(name: params[:name], handle: params[:handle], 
-		password: pass )
+	user = User.new(name: params[:name], handle: params[:handle],password: pass)
 	user.save
 	session[:user_id] = user.id
-	# redirect('/')
+	redirect('/signup')
 end
 
 get '/login' do
@@ -51,19 +49,20 @@ get '/login' do
 	erb :login
 end
 
-post "/login" do
-    if user = User.find_by(handle: params[:handle])
-       	if user.password == params[:password]
-    		session[:logged_in] = "Login successful"
-    		redirect('/')
-    	else
-    		session[:error] = "Wrong password, Try again."
-    		redirect('/login')
-    	end
-    else
-    	redirect('/login')
-    end
-end
+# post "/login" do
+#     if user = User.find_by(handle: params[:handle])
+#        	if user.password == params[:password]
+
+#     		session[:logged_in] = "Login successful"
+#     		redirect('/')
+#     	else
+#     		session[:error] = "Wrong password, Try again."
+#     		redirect('/login')
+#     	end
+#     else
+#     	redirect('/login')
+#     end
+# end
 
 # describe User do
 # 	before do
