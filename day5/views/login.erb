@@ -1,0 +1,20 @@
+<html>
+<body style="text-align: center; vertical-align: middle;">
+
+
+	<h3>Login in if you already have an account</h3>
+
+	<% if @error %>
+		<%= @error %>
+	<%end%>
+
+	<form action="/login" method="post">
+		Username<input  type="text" name="handle"/>
+		Password<input type="password" name="password"/>
+		<input type="submit" value="Login"/>
+
+	</form>
+
+	<h6 style="color: grey;" >If entered login details are correct, you will be redirected to home page.</h6>
+</body>
+</html>

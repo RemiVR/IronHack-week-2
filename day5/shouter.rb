@@ -20,22 +20,21 @@ class User < ActiveRecord::Base
 end
 
 class Shout < ActiveRecord::Base
-  validates_numericality_of :number_of_letters, greater_than: 0 
+  validates :message, presence: true, length: { minimum: 1, maximum: 200}
   belongs_to :user
 end
 	
 
 get '/' do
-	user = User.find(session[:user_id])
-	
-	# @shout = shout
+	# @shouts = Shout.all
 	erb :index
 end
 
 
 get '/signup' do
-	@user = User.last
+	
 	erb :signup
+	# redirect '/'
 end
 
 post '/signup' do
@@ -44,25 +43,48 @@ post '/signup' do
 		password: pass )
 	user.save
 	session[:user_id] = user.id
-	redirect '/signup'
+	redirect('/login')
 end
 
 get '/login' do
-	redirect '/'
+	@error = session[:error]
+	erb :login
 end
-# post '/login' do
 
+post "/login" do
+    if User.find_by(handle: params[:handle])
+    	user = User.find_by(handle: params[:handle])
+    	if user.password == params[:password]
+    		# session[:logged_in] = "Login successful"
+    		# @logged_in = session[:logged_in]
+    		redirect('/')
+    	else
+    		session[:error] = "Wrong password"
+    		redirect('/login')
+    	end
+    else
+    	redirect('/login')
+    end
+end
+
+# post '/shout' do
+# 	shout = Shout.new(message: params[:message])
+# 	shout.save
 # end
+
 
 # describe User do
 # 	before do
 # 		@user = User.new
-# 		@user.name = 'Remi'
-# 		@user.username = 'remicoco'
-# 		@user.password = ''
+# 		@user.name = "remi"
+# 		@user.handle = :handle
+# 		@user.password = "KSRJHQHKGMPRCSAJYYVB"
 # 	end
-# 	it "should validate user information"
-# 		expect(@user.valid?).to bet_truthy
+# 	it "should validate user information" do
+# 		expect(@user.valid?).to be_truthy
+# 	end
+# 	it "should validate handle" do
+# 		expect(@user.handle.valid?).to be_truthy
 # 	end
 # end
 
