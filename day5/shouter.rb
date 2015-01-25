@@ -28,8 +28,7 @@ end
 	
 
 get '/' do
-	@shouts = Shout.all.order('created_at desc').limit(10)
-	@users = User.all
+	@shouts = Shout.all.order('likes desc').limit(10)
 	erb :index
 end
 
