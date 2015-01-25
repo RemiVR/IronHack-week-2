@@ -29,21 +29,19 @@ end
 
 get '/' do
 	@shouts = Shout.all.order('created_at desc').limit(10)
-	
 	erb :index
 end
 
 
 get '/signup' do
-	
+
 	erb :signup
 	# redirect '/'
 end
 
 post '/signup' do
 	pass = (0...20).map { (65 + rand(26)).chr }.join
-	user = User.new(name: params[:name], handle: params[:handle], 
-		password: pass )
+	user = User.new(name: params[:name], handle: params[:handle],password: pass)
 	user.save
 	session[:user_id] = user.id
 	redirect('/login')
@@ -81,7 +79,6 @@ post '/likes' do
 
 	likes.save
 end
-
 
 
 # describe User do
