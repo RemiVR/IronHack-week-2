@@ -21,17 +21,17 @@ class Calculator
 
 end
 
-=begin
-calculate = Calculator.new
 
-# Test 1 - = - = - = - = 
-puts "Addition test"
-if calculate.add(5,6) == 15
-	puts "OK"
-else
-	puts "FAIL"
-end
-=end
+# calculate = Calculator.new
+
+# # Test 1 - = - = - = - = 
+# puts "Addition test"
+# if calculate.add(5,6) == 15
+# 	puts "OK"
+# else
+# 	puts "FAIL"
+# end
+
 
 describe Calculator do
 	before do
